@@ -1,0 +1,129 @@
+#include <iostream>
+#include <clocale>
+#include <random>
+#include <time.h>
+#include <signal.h>
+#include <thread>
+#include <chrono>
+using namespace std;
+
+class karakter
+{
+private:
+    int can = 100;
+    int aclik = 0;
+    int susuzluk = 0;
+    int konumX = 0;
+    int konumZ = 0;
+    int konumSag;
+    int konumSol;
+    int konumIleri;
+    int konumGeri;
+    int secim;
+    int para = 100;
+    int dongu;
+    int uykuDurumu;
+
+public:
+
+    void oyun()
+    {
+
+        dongu = 1;
+        while (dongu)
+        {
+            this_thread::sleep_for(chrono::seconds(1));
+            cout << "" << endl;
+            cout << "Yapmak istediğiniz işlemi seçiniz" << endl;
+            cout << "" << endl;
+            cout << "1- Sağa git" << endl << "2- Sola git" << endl << "3- İleri git" << endl << "4- Geri git" << endl << "5- Yemek ye" << endl << "6- Su iç" << endl << "7- Para Gönder" << endl << "8-Karakteri Uyut" << endl;
+            cin >> secim;
+            switch (secim)
+            {
+            case 1:
+
+                hareketSaga();
+                susuzlukVeAclikDurumuAzal();
+                canAzalma();
+
+                break;
+
+            case 2:
+
+                hareketSola();
+                susuzlukVeAclikDurumuAzal();
+                canAzalma();
+
+                break;
+
+            case 3:
+
+                hareketIleri();
+                susuzlukVeAclikDurumuAzal();
+                canAzalma();
+
+                break;
+
+            case 4:
+
+                hareketGeri();
+                susuzlukVeAclikDurumuAzal();
+                canAzalma();
+
+                break;
+
+            case 5:
+                yemekYeme();
+
+                break;
+
+            case 6:
+                susuzlukArttir();
+
+                break;
+
+            case 7:
+                paraAktarimi();
+
+                break;
+
+            case 8:
+                uyut();
+
+                break;
+            }
+
+
+
+
+            if (can <= 0)
+            {
+                
+                break;
+            }
+
+
+
+        }
+    }
+
+
+
+
+
+
+int main()
+
+{
+    setlocale(LC_ALL, "Turkish");
+
+    karakter Nihat;
+    karakter Ece;
+
+    Nihat.oyun();
+
+
+
+    system("pause");
+    return 0;
+}
