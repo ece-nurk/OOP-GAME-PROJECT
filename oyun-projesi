@@ -5,7 +5,15 @@
 #include <signal.h>
 #include <thread>
 #include <chrono>
+#include <windows.h>
+
 using namespace std;
+
+#define RED     "\033[31m"
+#define RESET   "\033[0m"
+#define YELLOW  "\033[33m"
+#define GREEN "\033[32m"
+#define BLUE    "\033[34m"
 
 class karakter
 {
@@ -28,16 +36,17 @@ public:
 
     void oyun()
     {
-
+        
         dongu = 1;
         while (dongu)
         {
-            this_thread::sleep_for(chrono::seconds(1));
+
             cout << "" << endl;
             cout << "Yapmak istediğiniz işlemi seçiniz" << endl;
             cout << "" << endl;
-            cout << "1- Sağa git" << endl << "2- Sola git" << endl << "3- İleri git" << endl << "4- Geri git" << endl << "5- Yemek ye" << endl << "6- Su iç" << endl << "7- Para Gönder" << endl << "8-Karakteri Uyut" << endl;
+            cout <<YELLOW<< "1- Sağa git " << endl << "2- Sola git " << endl << "3- İleri git " << endl << "4- Geri git " << endl << "5- Yemek ye " << endl << "6- Su iç " << endl << "7- Para Gönder " << endl << "8-Karakteri Uyut " <<RESET<< endl;
             cin >> secim;
+
             switch (secim)
             {
             case 1:
@@ -93,18 +102,100 @@ public:
                 break;
             }
 
-
-
+            this_thread::sleep_for(chrono::seconds(2));
+            system("cls");
 
             if (can <= 0)
             {
-                
+                cout <<RED<< "X-X-X-X-X-X-X-X-X-X-X-X-X-X"<< endl;
+                cout << "!!!    KARAKTER ÖLDÜ    !!!" << endl;
+                cout <<  "X-X-X-X-X-X-X-X-X-X-X-X-X-X" <<RESET<< endl;
+                cout << "" << endl;
+                for (int i = 0; i < 3; ++i) { // ölüm ses efekti      
+                    Beep(1500, 3000);  
+                    Sleep(3000);
+                }
                 break;
             }
 
-
-
         }
+    }
+
+    // Sağa hareket etme 
+    void hareketSaga()
+    {
+        this->konumSol = konumSol;
+        this->konumSag = konumSag;
+        this->konumX = konumX;
+        this->konumZ = konumZ;
+
+        cout << "Kaç metre gitmek istediğinizi giriniz: ";
+        cin >> konumSag;
+        cout << "" << endl;
+        cout << "Karakter " << konumSag << " metre sağa gitmiştir" << endl;
+
+        konumX = konumX + konumSag;
+        cout << "konumunuz yatay:" << konumX << " dikey:" << konumZ << endl;
+        cout << "" << endl;
+
+    }
+
+    // Sola hareket etme 
+    void hareketSola()
+    {
+        this->konumSol = konumSol;
+        this->konumSag = konumSag;
+        this->konumX = konumX;
+        this->konumZ = konumZ;
+
+        cout << "Kaç metre gitmek istediğinizi giriniz: ";
+        cin >> konumSol;
+        cout << "" << endl;
+        cout << "Karakter " << konumSol << " metre sola gitmiştir" << endl;
+
+        konumX = konumX - konumSol;
+        cout << "konumunuz yatay:" << konumX << " dikey:" << konumZ << endl;
+        cout << "" << endl;
+
+    }
+
+    // İleri hareket etme 
+    void hareketIleri()
+    {
+
+        this->konumSol = konumSol;
+        this->konumSag = konumSag;
+        this->konumX = konumX;
+        this->konumZ = konumZ;
+
+        cout << "Kaç metre gitmek istediğinizi giriniz: ";
+        cin >> konumIleri;
+        cout << "" << endl;
+        cout << "Karakter " << konumIleri << " metre ileri gitmiştir" << endl;
+
+        konumZ = konumZ + konumIleri;
+        cout << "konumunuz yatay:" << konumX << " dikey:" << konumZ << endl;
+        cout << "" << endl;
+
+    }
+
+    // Geri hareket etme 
+    void hareketGeri()
+    {
+        this->konumSol = konumSol;
+        this->konumSag = konumSag;
+        this->konumX = konumX;
+        this->konumZ = konumZ;
+
+        cout << "Kaç metre gitmek istediğinizi giriniz: ";
+        cin >> konumGeri;
+        cout << "" << endl;
+        cout << "Karakter " << konumGeri << " metre geri gitmiştir" << endl;
+
+        konumZ = konumZ - konumGeri;
+        cout << "konumunuz yatay:" << konumX << " dikey:" << konumZ << endl;
+        cout << "" << endl;
+
     }
 
 
@@ -112,18 +203,39 @@ public:
 
 
 
-int main()
+    int main()
 
-{
-    setlocale(LC_ALL, "Turkish");
+    {
+        string hazir;
 
-    karakter Nihat;
-    karakter Ece;
+        setlocale(LC_ALL, "Turkish");
+        cout << GREEN << "*-*-*-*-*-*-*-*-*-*-*-*-*" << endl;
+        cout << "**HOŞGELDİN, HAZIR MISIN**" << endl;
+        cout << "*-*-*-*-*-*(E/H)*-*-*-*-*" << RESET << endl;
+        cout << "" << endl;
 
-    Nihat.oyun();
+        for (int i = 0; i < 3; ++i) { // kalp atışı efekti
+            Beep(900, 300);
+            Sleep(400);
+            Beep(900, 300);
+            Sleep(500);
+        }
 
+        cin >> hazir;
+        if (hazir == "E" || hazir == "e") {
+            karakter Nihat;
+            karakter Ece;
+            Nihat.oyun();
+        }
+        else if (hazir == "H" || hazir == "h") {
+            cout << " " << endl;
+            cout << "Hazır Olduğunda Tekrar Gel :(" << endl;
+            cout << " " << endl;
+        }
+        else {
+            cout << "Hatalı Giriş Yaptınız." << endl;
+        }
 
-
-    system("pause");
-    return 0;
-}
+        system("pause");
+        return 0;
+    }
