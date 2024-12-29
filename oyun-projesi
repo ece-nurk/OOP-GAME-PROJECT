@@ -41,7 +41,7 @@ public:
 };
 
 
-     
+
 class karakter : public Ozellikler
 {
 
@@ -55,7 +55,7 @@ public:
     }
     void oyun()
     {
-        
+
         dongu = 1;
         while (dongu)
         {
@@ -63,7 +63,7 @@ public:
             cout << "" << endl;
             cout << "Yapmak istediğiniz işlemi seçiniz" << endl;
             cout << "" << endl;
-            cout <<YELLOW<< "1- Sağa git " << endl << "2- Sola git " << endl << "3- İleri git " << endl << "4- Geri git " << endl << "5- Yemek ye " << endl << "6- Su iç " << endl << "7- Para Gönder " << endl << "8-Karakteri Uyut " <<RESET<< endl;
+            cout << YELLOW << "1- Sağa git " << endl << "2- Sola git " << endl << "3- İleri git " << endl << "4- Geri git " << endl << "5- Yemek ye " << endl << "6- Su iç " << endl << "7- Para Gönder " << endl << "8-Karakteri Uyut " << RESET << endl;
             cin >> secim;
 
             switch (secim)
@@ -126,12 +126,12 @@ public:
 
             if (can <= 0)
             {
-                cout <<RED<< "X-X-X-X-X-X-X-X-X-X-X-X-X-X"<< endl;
+                cout << RED << "X-X-X-X-X-X-X-X-X-X-X-X-X-X" << endl;
                 cout << "!!!    KARAKTER ÖLDÜ    !!!" << endl;
-                cout <<  "X-X-X-X-X-X-X-X-X-X-X-X-X-X" <<RESET<< endl;
+                cout << "X-X-X-X-X-X-X-X-X-X-X-X-X-X" << RESET << endl;
                 cout << "" << endl;
                 for (int i = 0; i < 3; ++i) { // ölüm ses efekti      
-                    Beep(1500, 3000);  
+                    Beep(1500, 3000);
                     Sleep(3000);
                 }
                 break;
@@ -229,7 +229,7 @@ public:
         else
         {
             aclik = aclik - 15;
-            cout <<BLUE<< "AFİYET OLSUN" <<RESET<< endl;
+            cout << BLUE << "AFİYET OLSUN" << RESET << endl;
             cout << "Yemek İhtiyacı: %" << aclik << endl;
         }
 
@@ -246,7 +246,7 @@ public:
         else
         {
             susuzluk = susuzluk - 20;
-            cout <<BLUE<< "AFİYET OLSUN" <<RESET<< endl;
+            cout << BLUE << "AFİYET OLSUN" << RESET << endl;
 
             cout << "Su İhtiyacı: %" << susuzluk << endl;
         }
@@ -273,14 +273,14 @@ public:
         {
             can = can - 20;
             cout << " " << endl;
-            cout <<RED<< "Karakter çok aç olduğu için canı 20 azaldı.  Yeni can: " << can <<RESET<<endl;
+            cout << RED << "Karakter çok aç olduğu için canı 20 azaldı.  Yeni can: " << can << RESET << endl;
         }
 
         if (susuzluk > 65)
         {
             can = can - 20;
             cout << " " << endl;
-            cout <<RED<< "Karakter çok susadığı için canı 20 azaldı. Yeni can: " << can <<RESET<<endl;
+            cout << RED << "Karakter çok susadığı için canı 20 azaldı. Yeni can: " << can << RESET << endl;
         }
 
     }
@@ -294,14 +294,17 @@ public:
         cin >> miktar;
         cout << "" << endl;
 
-        if (para < miktar)
-        {
-            cout <<RED<< "O kadar paran yok :(" <<RESET<< endl;
+        try {
+            if (para < miktar) { 
+                throw runtime_error(RED "O kadar paran yok :(" RESET); }
+            else { 
+                cout << miktar << " TL Gönderildi." << endl; 
+                cout << "Kalan Para: " << (para = para - miktar) << " TL" << endl; 
+            } 
         }
-        else
-        {
-            cout << miktar << " TL Gönderildi." << endl;
-            cout << "Kalan Para: " << (para = para - miktar) << " TL" << endl;
+        catch (const runtime_error& e)
+        { 
+            cout << e.what() << endl; 
         }
 
 
@@ -326,41 +329,41 @@ public:
 
 
 
-    int main()
+int main()
 
-    {
-        string hazir;
+{
+    string hazir;
 
-        setlocale(LC_ALL, "Turkish");
-        cout << GREEN << "*-*-*-*-*-*-*-*-*-*-*-*-*" << endl;
-        cout << "**HOŞGELDİN, HAZIR MISIN**" << endl;
-        cout << "*-*-*-*-*-*(E/H)*-*-*-*-*" << RESET << endl;
-        cout << "" << endl;
-
-
-        for (int i = 0; i < 3; ++i) { // kalp atışı efekti
-            Beep(900, 300);
-            Sleep(400);
-            Beep(900, 300);
-            Sleep(500);
-        }
-
-        cin >> hazir;
-        if (hazir == "E" || hazir == "e") {
-            karakter Nihat;
-            karakter Ece;
-            Nihat.oyun();
-        }
-        else if (hazir == "H" || hazir == "h") {
-            cout << " " << endl;
-            cout << "Hazır Olduğunda Tekrar Gel :(" << endl;
-            cout << " " << endl;
-        }
-        else {
-            cout << "Hatalı Giriş Yaptınız." << endl;
-        }
+    setlocale(LC_ALL, "Turkish");
+    cout << GREEN << "*-*-*-*-*-*-*-*-*-*-*-*-*" << endl;
+    cout << "**HOŞGELDİN, HAZIR MISIN**" << endl;
+    cout << "*-*-*-*-*-*(E/H)*-*-*-*-*" << RESET << endl;
+    cout << "" << endl;
 
 
-        system("pause");
-        return 0;
+    for (int i = 0; i < 3; ++i) { // kalp atışı efekti
+        Beep(900, 300);
+        Sleep(400);
+        Beep(900, 300);
+        Sleep(500);
     }
+
+    cin >> hazir;
+    if (hazir == "E" || hazir == "e") {
+        karakter Nihat;
+        karakter Ece;
+        Nihat.oyun();
+    }
+    else if (hazir == "H" || hazir == "h") {
+        cout << " " << endl;
+        cout << "Hazır Olduğunda Tekrar Gel :(" << endl;
+        cout << " " << endl;
+    }
+    else {
+        cout << "Hatalı Giriş Yaptınız." << endl;
+    }
+
+
+    system("pause");
+    return 0;
+}
